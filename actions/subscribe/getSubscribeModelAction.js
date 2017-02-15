@@ -1,7 +1,7 @@
 var getSubscribeModelLogic = require('../../logic/subscribe/getSubscribeModelLogic')
 
 var Input = {
-	Token: {
+	token: {
 		required: true
 	}
 }

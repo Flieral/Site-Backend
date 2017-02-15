@@ -3,21 +3,21 @@ exports['default'] = {
     return {
 
       get: [{
-          path: '/SiteBackend/Subscribe/:Token',
+          path: '/:apiVersion/siteBackend/subscribe/:token',
           action: 'getSubscribeModelAction'
         },
         {
-          path: '/SiteBackend/Message/:Token',
+          path: '/:apiVersion/SiteBackend/Message/:token',
           action: 'getMessageModelAction'
         }
       ],
 
       post: [{
-          path: '/SiteBackend/Subscribe/:Token',
+          path: '/:apiVersion/Sitebackend/Subscribe/:token',
           action: 'setSubscribeModelAction'
         },
         {
-          path: '/SiteBackend/Message/:Token',
+          path: '/:apiVersion/SiteBackend/Message/:token',
           action: 'setMessageModelAction'
         }
       ],

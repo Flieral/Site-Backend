@@ -1,7 +1,7 @@
 var getMessageModelLogic = require('../../logic/message/getMessageModelLogic')
 
 var Input = {
-	Token: {
+	token: {
 		required: true
 	}
 }

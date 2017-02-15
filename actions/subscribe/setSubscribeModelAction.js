@@ -13,7 +13,6 @@ exports.setSubscribeModelAction = {
 	
 	run: function (api, data, next) {
 		var payload = JSON.parse(JSON.stringify(data.connection.rawConnection.params.body))
-		console.log(Input)
 		setSubscribeModelLogic.setSubscriberModel(data.params.token, payload, function (error, replies) {
 			if (error) {
 				data.response.error = error.error

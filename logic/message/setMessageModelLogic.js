@@ -2,14 +2,14 @@ var mysql = require('mysql')
 var connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: '123456',
-  database: 'flieralsite'
+  password: 'adp',
+  database: 'FlieralSite'
 })
 
 module.exports = {
   setMessageModel: function (token, payload, callback) {
     connection.connect()
-    connection.query('SELECT * FROM arrivedmessagestoken WHERE Token =?', token, function (error, results) {
+    connection.query('SELECT * FROM ArrivedMessagesToken WHERE Token =?', token, function (error, results) {
       if (error) {
         callback(error, null)
         connection.end()
@@ -17,21 +17,21 @@ module.exports = {
       }
       if (results[0].Token !== null && results[0].Counter < 5) {
         var newCounter = results[0].Counter + 1
-        connection.query('UPDATE arrivedmessagestoken SET Counter = ? WHERE Token = ?', [newCounter, token], function (error, results2) {
+        connection.query('UPDATE ArrivedMessagesToken SET Counter = ? WHERE Token = ?', [newCounter, token], function (error, results2) {
           if (error) {
             callback(error, null)
             connection.end()
             return
           }
           var newRowtoMsginUpdate = {
-            Name: payload.Name,
-            Email: payload.Email,
-            Phone: payload.Phone,
-            Subject: payload.Subject,
-            Message: payload.Message,
+            Name: payload.name,
+            Email: payload.email,
+            Phone: payload.phone,
+            Subject: payload.subject,
+            Message: payload.message,
             TokenId: token
           }
-          connection.query('INSERT INTO arrivedmessages SET ', newRowtoMsginUpdate, function (error, results3) {
+          connection.query('INSERT INTO ArrivedMessages SET ', newRowtoMsginUpdate, function (error, results3) {
             if (error) {
               callback(error, null)
               connection.end()
@@ -46,23 +46,23 @@ module.exports = {
         if (results[0].Token === null) {
           var newRowtoMsgToken = {
             Token: token,
-            Counter: 0
+            Counter: 1
           }
-          connection.query('INSERT INTO arrivedmessagestoken SET ', newRowtoMsgToken, function (error, results4) {
+          connection.query('INSERT INTO ArrivedMessagesToken SET ', newRowtoMsgToken, function (error, results4) {
             if (error) {
               callback(error, null)
               connection.end()
               return
             }
             var newRowtoMsginInsert = {
-              Name: payload.Name,
-              Email: payload.Email,
-              Phone: payload.Phone,
-              Subject: payload.Subject,
-              Message: payload.Message,
+              Name: payload.name,
+              Email: payload.email,
+              Phone: payload.phone,
+              Subject: payload.subject,
+              Message: payload.message,
               TokenId: results4.insertId
             }
-            connection.query('INSERT INTO arrivedmessages SET ', newRowtoMsginInsert, function (error, results5) {
+            connection.query('INSERT INTO ArrivedMessages SET ', newRowtoMsginInsert, function (error, results5) {
               if (error) {
                 callback(error, null)
                 connection.end()
