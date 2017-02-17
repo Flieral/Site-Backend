@@ -5,7 +5,7 @@ module.exports = {
     var connection = mysql.createConnection({
       host: 'localhost',
       user: 'root',
-      password: 'adp',
+      password: 'root',
       database: 'FlieralSite'
     })
     connection.connect(function (err) {
@@ -19,7 +19,7 @@ module.exports = {
           connection.end()
           return
         }
-        if ((results.length != 0) && results[0].Token !== null && parseInt(results[0].Counter, 10) < 5) {
+        if ((results.length != 0) && results[0].Token !== null && parseInt(results[0].Counter, 10) < 1) {
           var newCounter = parseInt(results[0].Counter, 10) + 1
           connection.query('UPDATE SubscribeToken SET Counter = ? WHERE Token = ?', [newCounter, token], function (error, results2) {
             if (error) {

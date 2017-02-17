@@ -5,7 +5,7 @@ module.exports = {
     var connection = mysql.createConnection({
       host: 'localhost',
       user: 'root',
-      password: 'adp',
+      password: 'root',
       database: 'FlieralSite'
     })
     connection.connect(function (err) {
@@ -19,7 +19,7 @@ module.exports = {
           connection.end()
           return
         }
-        if ((results.length != 0) && results[0].Token !== null && parseInt(results[0].Counter, 10) < 5) {
+        if ((results.length != 0) && results[0].Token !== null && parseInt(results[0].Counter, 10) < 1) {
           var newCounter = parseInt(results[0].Counter, 10) + 1
           connection.query('UPDATE ArrivedMessagesToken SET Counter = ? WHERE Token = ?', [newCounter, token], function (error, results2) {
             if (error) {
@@ -35,7 +35,7 @@ module.exports = {
               Message: payload.message,
               TokenId: token
             }
-            connection.query('INSERT INTO ArrivedMessages SET ', newRowtoMsginUpdate, function (error, results3) {
+            connection.query('INSERT INTO ArrivedMessages SET ?', newRowtoMsginUpdate, function (error, results3) {
               if (error) {
                 callback(error, null)
                 connection.end()
@@ -52,7 +52,7 @@ module.exports = {
               Token: token,
               Counter: 1
             }
-            connection.query('INSERT INTO ArrivedMessagesToken SET ', newRowtoMsgToken, function (error, results4) {
+            connection.query('INSERT INTO ArrivedMessagesToken SET ?', newRowtoMsgToken, function (error, results4) {
               if (error) {
                 callback(error, null)
                 connection.end()
@@ -66,7 +66,7 @@ module.exports = {
                 Message: payload.message,
                 TokenId: results4.insertId
               }
-              connection.query('INSERT INTO ArrivedMessages SET ', newRowtoMsginInsert, function (error, results5) {
+              connection.query('INSERT INTO ArrivedMessages SET ?', newRowtoMsginInsert, function (error, results5) {
                 if (error) {
                   callback(error, null)
                   connection.end()

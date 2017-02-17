@@ -7,7 +7,7 @@
     "node": ">=4.0.0"
   },
   "dependencies": {
-    "actionhero": "16.0.0",
+    "actionhero": "~16.0.0",
     "fakeredis": "^1.0.3",
     "ioredis": "latest",
     "mysql": "^2.13.0",
