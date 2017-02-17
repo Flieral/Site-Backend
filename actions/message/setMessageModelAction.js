@@ -1,4 +1,4 @@
-var setSubscribeModelLogic = require('../../logic/subscribe/setSubscribeModelLogic')
+var setMessageModelLogic = require('../../logic/message/setMessageModelLogic.js')
 
 var Input = {
 	token: {
@@ -6,14 +6,14 @@ var Input = {
 	}
 }
 
-exports.setSubscribeModelAction = {
-	name: 'setSubscribeModelAction',
-	description: 'Set Subscribe Model',
+exports.setMessageModelAction = {
+	name: 'setMessageModelAction',
+	description: 'Set Message Model',
 	inputs: Input,
 	
 	run: function (api, data, next) {
 		var payload = JSON.parse(JSON.stringify(data.connection.rawConnection.params.body))
-		setSubscribeModelLogic.setSubscriberModel(data.params.token, payload, function (error, replies) {
+		setMessageModelLogic.setMessageModel(data.params.token, payload, function (error, replies) {
 			if (error) {
 				data.response.error = error.error
 				next(error)
