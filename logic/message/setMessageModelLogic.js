@@ -19,7 +19,7 @@ module.exports = {
           connection.end()
           return
         }
-        if ((results.length != 0) && results[0].Token !== null && parseInt(results[0].Counter, 10) < 1) {
+        if ((results.length != 0) && results[0].Token !== null && parseInt(results[0].Counter, 10) < 5) {
           var newCounter = parseInt(results[0].Counter, 10) + 1
           connection.query('UPDATE ArrivedMessagesToken SET Counter = ? WHERE Token = ?', [newCounter, token], function (error, results2) {
             if (error) {
@@ -33,7 +33,7 @@ module.exports = {
               Phone: payload.phone,
               Subject: payload.subject,
               Message: payload.message,
-              TokenId: token
+              TokenId: parseInt(results[0].Id)
             }
             connection.query('INSERT INTO ArrivedMessages SET ?', newRowtoMsginUpdate, function (error, results3) {
               if (error) {
@@ -64,7 +64,7 @@ module.exports = {
                 Phone: payload.phone,
                 Subject: payload.subject,
                 Message: payload.message,
-                TokenId: results4.insertId
+                TokenId: parseInt(results4.insertId)
               }
               connection.query('INSERT INTO ArrivedMessages SET ?', newRowtoMsginInsert, function (error, results5) {
                 if (error) {

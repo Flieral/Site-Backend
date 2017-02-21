@@ -19,7 +19,7 @@ module.exports = {
           connection.end()
           return
         }
-        if ((results.length != 0) && results[0].Token !== null && parseInt(results[0].Counter, 10) < 1) {
+        if ((results.length != 0) && results[0].Token !== null && parseInt(results[0].Counter, 10) < 5) {
           var newCounter = parseInt(results[0].Counter, 10) + 1
           connection.query('UPDATE SubscribeToken SET Counter = ? WHERE Token = ?', [newCounter, token], function (error, results2) {
             if (error) {
@@ -29,7 +29,7 @@ module.exports = {
             }
             var newRowtoSubinUpdate = {
               Email: payload.email,
-              STokenId: token
+              STokenId: parseInt(results[0].IdST)
             }
             connection.query('INSERT INTO Subscribers SET ?', newRowtoSubinUpdate, function (error, results3) {
               if (error) {
@@ -56,7 +56,7 @@ module.exports = {
               }
               var newRowtoSubinInsert = {
                 Email: payload.email,
-                STokenId: results4.insertId
+                STokenId: parseInt(results4.insertId)
               }
               connection.query('INSERT INTO Subscribers SET ?', newRowtoSubinInsert, function (error, results5) {
                 if (error) {
